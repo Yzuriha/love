@@ -5,16 +5,328 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Love</title>
 <style>
+
+	@font-face {
+		font-family: 'Amstirdam';
+		src: url('css/SVN-Amstirdam.otf') format('opentype');
+		font-weight: normal;
+		font-style: normal;
+    }
+
+
     body {
-        font-family: Arial, sans-serif;
+		font-size: 10px;
+		background-color: #eed9c4;
+		color: #6b5a45;
+		user-select: none;
     }
 	
+	main {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 30px;
+		flex-direction: column;
+	}
+	
+	.main-text {
+		font-family: Amstirdam;
+		font-size: 15rem;
+		
+		/* animation setup */
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        animation: reveal 1.8s ease-out forwards;
+	}
+
+	@keyframes reveal {
+		from {
+			opacity: 0;
+			clip-path: inset(0 100% 0 0);
+		}
+		to {
+			opacity: 1;
+			clip-path: inset(0 0 0 0);
+		}
+	}
+	
+	.button-choices {
+		position: relative;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 30px;
+		width: 35rem;
+	}
+		
+	.button-option {
+		font-family: Amstirdam;
+		font-size: 5rem;
+		width: 15rem;
+		text-align: center;
+		border: 2px solid #6b5a45a1;
+		border-radius: 30px;
+		background-color: #eed9c4;
+		
+		 /* animation setup */
+		opacity: 0;
+		transform: translateY(20px);
+		animation: fadeUp 1s ease-out forwards;
+		animation-delay: 1.9s; /* after text reveal */
+		
+		 /* 👇 THIS is the important part */
+		transition: border-color 0.1s ease;
+	}
+	
+	/**
+	.button-option--yes-hover {
+		font-family: Amstirdam;
+		font-size: 5rem;
+		width: 15rem;
+		display: grid;
+		align-items: center;
+		justify-items: center;
+	}
+	**/
+	
+	.button-option--yes-hover > * {
+	    grid-row: 1;
+		grid-column: 1;
+	}
+	
+	.button-yes-text {
+	    z-index: 1;
+		color: #eed9c4;
+		padding-bottom: 15px;
+	}
+	
+
+	.button-option--yes:hover {
+		background-color: #6b5a45;
+		color: #eed9c4;
+		transition: 0.25s all ease-in-out
+	}
+	
+	.button-option--yes {
+		position: absolute;
+		inset: 0;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		background: transparent;
+		opacity: 1;
+		transition: opacity 0.3s ease;
+	}
+	
+	.button-option--yes-hover {
+		position: absolute;
+		inset: 0;
+
+		display: grid;
+		align-items: center;
+		justify-items: center;
+
+		opacity: 0;
+		transform: scale(0.9);
+		transition: all 0.3s ease;
+	}
+
+	.button-option--yes-hover i {
+		font-size: 12rem;
+		color: #6b5a45;
+		margin-top: -2.5rem;
+	}
+
+	.button-yes-text {
+		z-index: 1;
+		color: #eed9c4;
+		margin-top: -2.5rem;
+	}
+	
+	.button-option.yes-wrapper:hover {
+		border-color: transparent;
+	}
+	
+	.yes-wrapper:hover .button-option--yes {
+		opacity: 0 !important;
+	}
+
+	.yes-wrapper:hover .button-option--yes-hover {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	.button-option--no {
+		position: absolute;
+		right: 0;
+		top: 0;
+		transition: left 0.35s cubic-bezier(.25,1,.3,1), top 0.35s cubic-bezier(.25,1,.3,1);
+		cursor: pointer;
+	}
+
+
+	.yes-wrapper {
+		position: relative;
+		width: 15rem;
+		height: 101px;
+		cursor: pointer;
+	}
+
+	
+	@keyframes fadeUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	
+	.heart {
+		position: fixed;
+		color: #e74c3c;
+		font-size: 2rem;
+		pointer-events: none; /* so they don’t block clicks */
+		z-index: 9999;
+		user-select: none;
+		animation: fall 3s linear forwards;
+	}
+
+	@keyframes fall {
+		0% {
+			transform: translateY(0) rotate(0deg);
+			opacity: 1;
+		}
+		100% {
+			transform: translateY(100vh) rotate(360deg);
+			opacity: 0;
+		}
+	}
+	
+	@keyframes pound {
+		0%, 100% { transform: scale(1); }
+		25% { transform: scale(1.2); }
+		50% { transform: scale(1); }
+		75% { transform: scale(1.2); }
+	}
+
+	.button-option--yes-hover:hover i {
+		animation: pound 2.5s infinite;
+	}
+
+	
 </style>
+<script src="https://kit.fontawesome.com/d5c9485222.js" crossorigin="anonymous"></script>
 
-<script>
 
 
-</script>
+<body>
+
+	<main>
+	
+		<div class="main-text">Làm người yêu của anh nha!</div>
+		
+	
+		
+		<div class="button-choices">
+			
+			<div class="button-option yes-wrapper">
+				<div class="button-option--yes">Dạ vâng</div>
+
+				<div class="button-option--yes-hover">
+					<i class="fa-solid fa-heart"></i>
+					<div class="button-yes-text">Dạ vâng</div>
+				</div>
+			</div>
+
+			
+			<div class="button-option button-option--no">Không</div>
+		</div>
+	
+	</main>
 
 </body>
+
+<script>
+const noButton = document.querySelector('.button-option--no');
+
+const activateNoButton = () => {
+    // Add hover listener
+    noButton.addEventListener('mouseenter', moveButton);
+
+    // Check if the mouse is already over the button
+    const rect = noButton.getBoundingClientRect();
+    const mouseX = window.mouseX || 0;
+    const mouseY = window.mouseY || 0;
+
+    if (
+        mouseX >= rect.left &&
+        mouseX <= rect.right &&
+        mouseY >= rect.top &&
+        mouseY <= rect.bottom
+    ) {
+        moveButton();
+    }
+};
+
+// Track the current mouse position
+window.addEventListener('mousemove', (e) => {
+    window.mouseX = e.clientX;
+    window.mouseY = e.clientY;
+});
+
+// Function to move the button randomly
+const moveButton = () => {
+    const padding = 40;
+    const buttonRect = noButton.getBoundingClientRect();
+
+    const maxX = window.innerWidth - buttonRect.width - padding;
+    const maxY = window.innerHeight - buttonRect.height - padding;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noButton.style.position = 'fixed';
+    noButton.style.left = `${randomX}px`;
+    noButton.style.top = `${randomY}px`;
+};
+
+// Activate after fade-in animation completes (1.9s delay + 1s duration = 2.9s)
+setTimeout(activateNoButton, 1900);
+
+const yesButton = document.querySelector('.yes-wrapper');
+
+yesButton.addEventListener('click', () => {
+    const numberOfHearts = 100; // how many hearts
+    for (let i = 0; i < numberOfHearts; i++) {
+        const heart = document.createElement('i');
+        heart.classList.add('fa-solid', 'fa-heart', 'heart');
+
+        // randomize initial position and size
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.fontSize = (10 + Math.random() * 30) + 'px';
+        heart.style.animationDuration = (2 + Math.random() * 2) + 's';
+        heart.style.opacity = Math.random() * 0.8 + 0.2;
+
+        document.body.appendChild(heart);
+
+        // remove the heart after animation ends
+        heart.addEventListener('animationend', () => {
+            heart.remove();
+        });
+    }
+});
+</script>
+
+
 </html>
